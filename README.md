@@ -1,5 +1,5 @@
 # rpi_radio
-rpi zero based web radio
+Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 
 ## create headless rasbian image for rpi zero
   - flash raspbian sketch lite (https://www.raspberrypi.org/downloads/raspbian/) to SD card
@@ -23,9 +23,12 @@ rpi zero based web radio
   - set interfacing options / ssh enabled (pernamently - not by ssh file in boot)
   - change password but don't forget it
   - upgrade system (sudo apt-get update; sudo apt-get upgrade)
-  
+
+## wire up Nokia 5110 display, test
+  - https://www.algissalys.com/how-to/nokia-5110-lcd-on-raspberry-pi
+  - backlight on pin 17, test: https://pythonprogramming.net/gpio-example-raspberry-pi/
+
 ## todo
-  - connect display, buttons and audio output
-  - display: https://www.algissalys.com/how-to/nokia-5110-lcd-on-raspberry-pi
+  - add buttons and audio output
   - audio: https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs
   
