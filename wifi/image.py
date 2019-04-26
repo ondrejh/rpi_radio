@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # Original: Adafruit Nokia 5110 LCD library example (image.py)
 # Copyright (c) 2014 Adafruit Industries
 # Author: Tony DiCola ..
@@ -29,12 +31,25 @@ disp.clear()
 disp.display()
 
 # Load image and convert to 1 bit color.
-image = Image.open('wifi_04.ppm').convert('1')
+files = ('wifi_01.ppm', 'wifi_02.ppm', 'wifi_03.ppm', 'wifi_04.ppm')
+images = []
+for f in files:
+	images.append(Image.open(f).convert('1'))
 
 # Display image.
-disp.image(image)
+disp.image(images[0])
 disp.display()
 
 print('Press Ctrl-C to quit.')
+step = 1
+current = 0
 while True:
-    time.sleep(1.0)
+	time.sleep(0.5)
+	current += step
+	if current == len(images) - 1:
+		step = -1
+	if current == 0:
+		step = 1
+	disp.clear()
+	disp.image(images[current])
+	disp.display()
