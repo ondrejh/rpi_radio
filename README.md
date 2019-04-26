@@ -31,6 +31,16 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     - sudo apt-get install python3-pip python3-pil
     - sudo pip3 install RPi.GPIO
     - test: python3 shapes.py
+    
+## clone repo, run application at startup
+
+  git clone https://github.com/ondrejh/rpi_radio.git
+  cd rpi_radio
+  sudo cp radio.service /lib/systemd/system/
+  sudo chmod 644 /lib/systemd/system/radio.service
+  sudo systemctl daemon-reload
+  sudo systemctl enable radio.service
+  sudo reboot
 
 ## todo
   - add buttons and audio output
