@@ -41,6 +41,10 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 
 ![schematic](/doc/audio_filter_schematic.jpg)
 
+  - connect 3V3 and GND to rpi header
+  - PWM0 to GPIO18
+  - PWM1 to GPIO13
+
 ### install pinout blob
 
     sudo apt-get install device_tree_compiler
