@@ -31,7 +31,26 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     - sudo apt-get install python3-pip python3-pil
     - sudo pip3 install RPi.GPIO
     - test: python3 shapes.py
-    
+
+## solder and test audio filter
+  - source 1: https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs
+  - source 2: https://www.raspberrypi.org/forums/viewtopic?f=91&t=86609 (Gordon, Wed Sep 10, 2014 12:23 pm)
+  - source 3 (test): https://www.raspberrypi.org/documentation/usage/audio/
+
+### install pinout blob
+
+    sudo apt-get install device_tree_compiler
+    dtc -O dtb -o dt-blob.bin dt-blob.dts
+    sudo cp dt-blob.bin /boot
+
+### test audio ouput
+
+    sudo apt-get install omxplayer
+    wget http://rpf.io/lamp3 -O example.mp3 --no-check-certificate
+    omxplayer example.mp3
+
+  - it makes noise :-D
+
 ## clone repo, run application at startup
 
     git clone https://github.com/ondrejh/rpi_radio.git
@@ -41,10 +60,6 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     sudo systemctl daemon-reload
     sudo systemctl enable radio.service
     sudo reboot
-
-## solder and test audio filter
-  - source 1: https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-output
-  - source 2: https://www.raspberrypi.org/forums/viewtopic?f=91&t=86609 (Gordon, Wed Sep 10, 2014 12:23 pm)
 
 ## todo
   - add buttons and audio output
