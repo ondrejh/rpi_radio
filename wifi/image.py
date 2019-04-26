@@ -6,13 +6,23 @@
 #
 # Edited 26.4.2019 to animate wifi symbol
 
-import time
+from time import sleep
 import os
+import socket
 
 import Adafruit_Nokia_LCD as LCD
 import Adafruit_GPIO.SPI as SPI
 
-from PIL import Image
+from PIL import Image, ImageDraw
+
+
+def get_my_ip(host='8.8.8.8', port=80):
+	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	s.connect((host, port))
+	ip = s.getsockname()[0]
+	s.close()
+	return ip
+
 
 # host name to test if internet is connected
 hostname = 'google.com'
@@ -47,7 +57,7 @@ print('Wait internet connection .', end='')
 step = 1
 current = 0
 while True:
-	time.sleep(0.5)
+	sleep(0.5)
 	current += step
 	disp.clear()
 	disp.image(images[current])
@@ -63,3 +73,16 @@ while True:
 
 print()
 print('Internet connected !!!')
+
+ip = get_my_ip(hostname)
+print('My IP is: {}'.format(ip))
+
+sleep(1.0)
+screen = Image.new('1', (LCD.LCDWIDTH, LCD.LCDHEIGHT))
+draw = ImageDraw.Draw(screen)
+draw.rectangle((0, 0, 83, 47), outline=255, fill=255)
+draw.text((25, 8), 'My IP:')
+draw.text((0, 22), ip)
+disp.clear()
+disp.image(screen)
+disp.display()
