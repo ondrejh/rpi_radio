@@ -7,12 +7,15 @@
 # Edited 26.4.2019 to animate wifi symbol
 
 import time
+import os
 
 import Adafruit_Nokia_LCD as LCD
 import Adafruit_GPIO.SPI as SPI
 
 from PIL import Image
 
+# host name to test if internet is connected
+hostname = 'google.com'
 
 # Raspberry Pi hardware SPI config:
 DC = 23
@@ -46,10 +49,15 @@ current = 0
 while True:
 	time.sleep(0.5)
 	current += step
-	if current == len(images) - 1:
-		step = -1
-	if current == 0:
-		step = 1
 	disp.clear()
 	disp.image(images[current])
 	disp.display()
+	if current == len(images) - 1:
+		resp = os.system('ping -c 1 -w2 {} > /dev/null 2>&1'.format(hostname))
+		if resp == 0:
+			break
+		step = -1
+	if current == 0:
+		step = 1
+
+print('Internet connected !!!')
