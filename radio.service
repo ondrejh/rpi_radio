@@ -1,0 +1,9 @@
+[Unit]
+Description=Radio LCD application - use buttons and LCD to navigate radio functions
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/pi/rpi_radio/wifi/image.py
+
+[Install]
+WantedBy=multi-user.target

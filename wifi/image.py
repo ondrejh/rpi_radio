@@ -24,6 +24,9 @@ def get_my_ip(host='8.8.8.8', port=80):
 	return ip
 
 
+# current dirrectory
+dir = '/home/pi/rpi_radio/wifi/'
+
 # host name to test if internet is connected
 hostname = 'google.com'
 
@@ -47,7 +50,7 @@ disp.display()
 files = ('wifi_01.ppm', 'wifi_02.ppm', 'wifi_03.ppm', 'wifi_04.ppm')
 images = []
 for f in files:
-	images.append(Image.open(f).convert('1'))
+	images.append(Image.open(dir+f).convert('1'))
 
 # Display image.
 disp.image(images[0])
