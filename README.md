@@ -37,6 +37,10 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
   - source 2: https://www.raspberrypi.org/forums/viewtopic?f=91&t=86609 (Gordon, Wed Sep 10, 2014 12:23 pm)
   - source 3 (test): https://www.raspberrypi.org/documentation/usage/audio/
 
+### solder audio filter
+
+![schematic](/doc/audio_filter_schematic.jpg)
+
 ### install pinout blob
 
     sudo apt-get install device_tree_compiler
@@ -62,6 +66,6 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     sudo reboot
 
 ## todo
-  - add buttons and audio output
-  - audio: https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs
-  
+  - play internet radio
+  - add buttons and navigation
+
