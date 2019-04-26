@@ -32,6 +32,10 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     - sudo pip3 install RPi.GPIO
     - test: python3 shapes.py
 
+## solder and test audio filter
+  - source 1: https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-output
+  - source 2: https://www.raspberrypi.org/forums/viewtopic?f=91&t=86609 (Gordon, Wed Sep 10, 2014 12:23 pm)
+
 ## todo
   - add buttons and audio output
   - audio: https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs

@@ -24,7 +24,7 @@ def get_my_ip(host='8.8.8.8', port=80):
 	return ip
 
 
-# current dirrectory
+# current dirrectory (this is needed when it runs as the service)
 dir = '/home/pi/rpi_radio/wifi/'
 
 # host name to test if internet is connected
