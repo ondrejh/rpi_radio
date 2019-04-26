@@ -27,6 +27,10 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 ## wire up Nokia 5110 display, test
   - https://www.algissalys.com/how-to/nokia-5110-lcd-on-raspberry-pi
   - backlight on pin 17, test: https://pythonprogramming.net/gpio-example-raspberry-pi/
+  - install lcd libraries for python3 too (to run examples with python3)
+    - sudo apt-get install python3-pip python3-pil
+    - sudo pip3 install RPi.GPIO
+    - test: python3 shapes.py
 
 ## todo
   - add buttons and audio output
