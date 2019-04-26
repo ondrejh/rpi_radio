@@ -43,7 +43,7 @@ for f in files:
 disp.image(images[0])
 disp.display()
 
-print('Press Ctrl-C to quit.')
+print('Wait internet connection .', end='')
 step = 1
 current = 0
 while True:
@@ -59,5 +59,7 @@ while True:
 		step = -1
 	if current == 0:
 		step = 1
+	print('.', end='')
 
+print()
 print('Internet connected !!!')
