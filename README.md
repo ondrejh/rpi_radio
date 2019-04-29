@@ -58,6 +58,16 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     omxplayer example.mp3
 
   - it makes noise :-D
+  
+## install mpd and mpc, add streams, play internet radio
+
+    sudo apt-get install mpd mpd
+    mpc add http://icecast7.play.cz/cro1-128.mp3
+    mpc add http://icecast2.play.cz/radiobeat128.mp3
+    mpc add http://212.111.2.151:8000/rockmax_128.mp3
+    mpc add http://212.111.2.151:8000/rm_hard_128.mp3
+    mpc play 2
+    mpc volume 100
 
 ## clone repo, run application at startup
 
@@ -70,6 +80,6 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     sudo reboot
 
 ## todo
-  - play internet radio
-  - add buttons and navigation
+  - test buttons
+  - add navigation
 
