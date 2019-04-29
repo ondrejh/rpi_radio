@@ -79,6 +79,10 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     sudo systemctl enable radio.service
     sudo reboot
 
+## wire and test buttons
+  - wire button switches between GPIO 20, 21 and GND
+  - test it with buttons.py
+
 ## guts
 
 ![front](doc/parts.jpg)
@@ -86,6 +90,5 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 ![back](doc/wires.jpg)
 
 ## todo
-  - test buttons
   - add navigation
 
