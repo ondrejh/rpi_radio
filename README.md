@@ -79,6 +79,12 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
     sudo systemctl enable radio.service
     sudo reboot
 
+## guts
+
+![front](doc/parts.jpg)
+
+![back](doc/wires.jpg)
+
 ## todo
   - test buttons
   - add navigation
