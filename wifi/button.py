@@ -15,13 +15,14 @@ except ImportError:
 	app = Flask(__name__)
 
 	btns = []
+	bckl = False
 
 	@app.route('/')
 	@app.route('/<name>/')
 	def hello(name=None):
 		if name in ('1', '2'):
 			btns.append(int(name))
-		return render_template('temp.html', name=name)
+		return render_template('temp.html', name=name, backlight=bckl)
 
 
 def btn1():
@@ -42,6 +43,15 @@ def btn2():
 			btns.remove(2)
 			return True
 	return False
+
+
+def bcklight(on=False):
+
+	if not test:
+		GPIO.output(17, 1 if on else 0)
+
+	else:
+		bkcl = 1 if on else 0
 
 
 class ButtonsThread(threading.Thread):
@@ -71,11 +81,13 @@ class ButtonsThread(threading.Thread):
 			if tmp != self.btn1s:
 				if tmp:
 					print('Button 1 PRESSED')
+					bcklight(True)
 				self.btn1s = tmp
 			tmp = btn2()
 			if tmp != self.btn2s:
 				if tmp:
 					print('Button 2 PRESSED')
+					bcklight(False)
 				self.btn2s = tmp
 			sleep(0.1)
 
