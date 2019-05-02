@@ -90,5 +90,6 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 ![back](doc/wires.jpg)
 
 ## todo
+  - test interface for display (to try without HW)
   - add navigation
 
