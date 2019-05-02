@@ -1,6 +1,8 @@
 # rpi_radio
 Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 
+![panel](doc/panel.jpg)
+
 ## create headless rasbian image for rpi zero
   - flash raspbian sketch lite (https://www.raspberrypi.org/downloads/raspbian/) to SD card
   - setup ssh on startup (create file "ssh" on /boot section)
@@ -88,6 +90,8 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 ![front](doc/parts.jpg)
 
 ![back](doc/wires.jpg)
+
+![back with panel](doc/back.jpg)
 
 ## todo
   - test interface for display (to try without HW)
