@@ -84,6 +84,10 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 ## wire and test buttons
   - wire button switches between GPIO 20, 21 and GND
   - test it with buttons.py
+  - to run test application (buttons.py) without HW (not on raspberry):
+    - install flask
+    - run ./buttons.py
+    - open web browser and se address 127.0.0.1:5000
 
 ## guts
 
