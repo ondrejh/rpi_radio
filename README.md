@@ -97,6 +97,14 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 
 ![back with panel](doc/back.jpg)
 
+## save default volume to 100% (and keep after reboot)
+
+https://raspberrypi.stackexchange.com/questions/13666/alsa-volume-lower-after-reboot
+
+    mpc volume 100
+    aplay -l
+    sudo alsactl store 0
+
 ## todo
   - test interface for display (to try without HW)
   - add navigation
