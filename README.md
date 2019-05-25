@@ -23,7 +23,7 @@ Description: Raspberry PI zero based web radio receiver with Nokia 5110 display.
 ## connect with ssh and run raspi-config
   - sudo raspi-config
   - set interfacing options / ssh enabled (pernamently - not by ssh file in boot)
-  - change password but don't forget it
+  - change password but don't forget it (my is 1n3tRad10 and i've forgoten already)
   - upgrade system (sudo apt-get update; sudo apt-get upgrade)
 
 ## wire up Nokia 5110 display, test
