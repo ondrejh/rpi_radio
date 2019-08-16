@@ -41,15 +41,26 @@
         }
     
         if (isset($_GET['save'])) {
+            $id = $_GET['save'];
+            settype($id, 'integer');
+            $name = $_GET['name'];
+            $url = $_GET['url'];
             echo "<meta http-equiv='refresh' content='3;url=index.php'/>". PHP_EOL;
-            if ($_GET['save'] == 0) {
-                $db->exec("INSERT INTO stations (name, url) VALUES ('". $_GET['name']. "', '". $_GET['url']. "')");
+            if ($id == 0) {
+                $search = $db->prepare("INSERT INTO stations (name, url) VALUES (:name, :url)");
+                $search->bindParam(":name", $name);
+                $search->bindParam(":url", $url);
+                $search->execute();
                 echo "</head><body class='home'><header id='top'><h1>RPi radio - Nová stanice</h1></header><section class='content'><article class='main'>". PHP_EOL;
-                echo "<p>Ukládám novou stanici '". $_GET['name']. "'.<br>Prosím čekejte</p>". PHP_EOL;
+                echo "<p>Ukládám novou stanici '". $name. "'.<br>Prosím čekejte</p>". PHP_EOL;
             } else {
-                $db->exec("UPDATE stations SET name='". $_GET['name']. "', url='". $_GET['url']. "' WHERE id==". $_GET['id']);
+                $search = $db->prepare("UPDATE stations SET name=:name, url=:url WHERE id==:id");
+                $search->bindParam(":name", $name);
+                $search->bindParam(":url", $url);
+                $search->bindParam(":id", $id);
+                $search->execute();
                 echo "</head><body class='home'><header id='top'><h1>RPi radio - Úprava stanice</h1></header><section class='content'><article class='main'>". PHP_EOL;
-                echo "<p>Upravuji stanici '". $_GET['id']. "'.<br>Prosím čekejte</p>". PHP_EOL;
+                echo "<p>Upravuji stanici '". $id. "'.<br>Prosím čekejte</p>". PHP_EOL;
             }
             echo "</article></section></body></html>". PHP_EOL;
             exit(0);
