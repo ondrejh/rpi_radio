@@ -31,7 +31,7 @@
         $db->exec('CREATE TABLE IF NOT EXISTS playing (now integer)');
 
         $result = $db->query('SELECT name FROM stations');
-        if ($result->fetchArray() == false) {
+        if ($result->fetchArray(SQLITE3_NUM) == false) {
             $db->exec("INSERT INTO stations (name, url) VALUES ('Radiožurnál', 'http://icecast7.play.cz/cro1-128.mp3'), ('Beat', 'http://icecast2.play.cz/radiobeat128.mp3'), ('RockMax', 'http://212.111.2.151:8000/rockmax_128.mp3'), ('RockMax Hard', 'http://212.111.2.151:8000/rm_hard_128.mp3');");
             echo "<meta http-equiv='refresh' content='3;url=index.php'/>". PHP_EOL;
             echo "</head><body class='home'><header id='top'><h1>RPi radio - Nová databáze</h1></header><section class='content'><article class='main'>". PHP_EOL;
@@ -67,10 +67,13 @@
         }
     
         if (isset($_GET['delete'])) {
-            $db->exec("DELETE FROM stations WHERE id==". $_GET['delete']);
+            $id = $_GET['delete'];
+            $search = $db->prepare("DELETE FROM stations WHERE id==:id");
+            $search->bindParam(":id", $id);
+            $search->execute();
             echo "<meta http-equiv='refresh' content='3;url=index.php'/>". PHP_EOL;
             echo "</head><body class='home'><header id='top'><h1>RPi radio - Mazání</h1></header><section class='content'><article class='main'>". PHP_EOL;
-            echo "<p>Mažu stanici '". $_GET['delete']. "'.<br>Prosím čekejte</p>". PHP_EOL;
+            echo "<p>Mažu stanici '". $id. "'.<br>Prosím čekejte</p>". PHP_EOL;
             echo "</article></section></body></html>". PHP_EOL;
             exit(0);
         }
@@ -100,8 +103,22 @@
     <section class="content">
 
         <article class="main">
+            
 
             <?php
+                if (isset($_GET['play'])) {
+                    $id = $_GET['play'];
+                    shell_exec('mpc stop');
+                    shell_exec('mpc clear');
+                    if ($id != 0) {
+                        $result = $db->query('SELECT id, url FROM stations WHERE id=='.$edit);
+                        $row = $result->fetchArray(SQLITE3_NUM);
+                        shell_exec('mpc add '. $row[1]);
+                        $output = shell_exec('mpc play');
+                        echo "<p>". $output. "</p>". PHP_EOL;
+                    }
+                }
+    
                 if ($edit == -1) {
                     include('list.php');
                 }
