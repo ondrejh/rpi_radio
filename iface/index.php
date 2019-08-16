@@ -30,55 +30,74 @@
         $db->exec('CREATE TABLE IF NOT EXISTS stations (id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(16), url varchar(64))');
         $db->exec('CREATE TABLE IF NOT EXISTS playing (now integer)');
 
-        $newfile = false;
         $result = $db->query('SELECT name FROM stations');
         if ($result->fetchArray() == false) {
-            $newfile = true;
             $db->exec("INSERT INTO stations (name, url) VALUES ('Radiožurnál', 'http://icecast7.play.cz/cro1-128.mp3'), ('Beat', 'http://icecast2.play.cz/radiobeat128.mp3'), ('RockMax', 'http://212.111.2.151:8000/rockmax_128.mp3'), ('RockMax Hard', 'http://212.111.2.151:8000/rm_hard_128.mp3');");
-            echo "<meta http-equiv='refresh' content='3;url='/>". PHP_EOL;
+            echo "<meta http-equiv='refresh' content='3;url=index.php'/>". PHP_EOL;
+            echo "</head><body class='home'><header id='top'><h1>RPi radio - Nová databáze</h1></header><section class='content'><article class='main'>". PHP_EOL;
+            echo "<p>Vytvářím nový soubor '". DB_NAME. "'.<br>Prosím čekejte</p>". PHP_EOL;
+            echo "</article></section></body></html>". PHP_EOL;
+            exit(0);
         }
+    
+        if (isset($_GET['save'])) {
+            echo "<meta http-equiv='refresh' content='3;url=index.php'/>". PHP_EOL;
+            if ($_GET['save'] == 0) {
+                $db->exec("INSERT INTO stations (name, url) VALUES ('". $_GET['name']. "', '". $_GET['url']. "')");
+                echo "</head><body class='home'><header id='top'><h1>RPi radio - Nová stanice</h1></header><section class='content'><article class='main'>". PHP_EOL;
+                echo "<p>Ukládám novou stanici '". $_GET['name']. "'.<br>Prosím čekejte</p>". PHP_EOL;
+            } else {
+                $db->exec("UPDATE stations SET name='". $_GET['name']. "', url='". $_GET['url']. "' WHERE id==". $_GET['id']);
+                echo "</head><body class='home'><header id='top'><h1>RPi radio - Úprava stanice</h1></header><section class='content'><article class='main'>". PHP_EOL;
+                echo "<p>Upravuji stanici '". $_GET['id']. "'.<br>Prosím čekejte</p>". PHP_EOL;
+            }
+            echo "</article></section></body></html>". PHP_EOL;
+            exit(0);
+        }
+    
+        if (isset($_GET['delete'])) {
+            $db->exec("DELETE FROM stations WHERE id==". $_GET['delete']);
+            echo "<meta http-equiv='refresh' content='3;url=index.php'/>". PHP_EOL;
+            echo "</head><body class='home'><header id='top'><h1>RPi radio - Mazání</h1></header><section class='content'><article class='main'>". PHP_EOL;
+            echo "<p>Mažu stanici '". $_GET['delete']. "'.<br>Prosím čekejte</p>". PHP_EOL;
+            echo "</article></section></body></html>". PHP_EOL;
+            exit(0);
+        }
+    
+        if (isset($_GET['edit']))
+            $edit = $_GET['edit'];
+        else
+            $edit = -1;
     ?>
 </head>
 
 <body class="home">
 
     <header id="top">
-        <h1>Web radio RPi</h1>
+        <h1>RPi radio
+            <?php
+                if ($edit == -1)
+                    echo "";
+                elseif ($edit == 0)
+                    echo " - Přidat";
+                else
+                    echo " - Upravit (". $edit. ")";
+            ?>
+        </h1>
     </header>
 
     <section class="content">
 
         <article class="main">
-        
-        <table>
-        <?php
-            if ($newfile) {
-                echo "<p>Vytvářím nový soubor '".DB_NAME."'.<br>Prosím čekejte</p>";
-            }
-            else {
-                $result = $db->query('SELECT name, url FROM stations');
-                $cnt = 1;
-                while (true) {
-                    $row = $result->fetchArray();
-                    if ($row == false)
-                        break;
-                    echo "<tr><td><form><input type='hidden' name='play' value=".$cnt."><input type='submit' value='".$row[0]."'></form></td><td>".$row[1]."</td>";
-                    echo "<td><form><input type='hidden' name='edit' value=".$cnt."><input type='submit' value='Edit'></form><td>";
-                    echo "<td><form><input type='hidden' name='delete' value=".$cnt."><input type='submit' value='Delete'></form><td></tr>". PHP_EOL;
-                    $cnt ++;
+
+            <?php
+                if ($edit == -1) {
+                    include('list.php');
                 }
-            }
-        ?>
-        </table>
-        <table>
-            <tr>
-                <!-- play 0 .. stop -->
-                <td><form><input type='hidden' name='play' value=0><input type='submit' value='Stop'></form></td>
-                <!-- edit 0 .. nova stanice -->
-                <td><form><input type='hidden' name='edit' value=0><input type='submit' value='New'></form></td>
-            </tr>
-        </table>
-            
+                else {
+                    include('edit.php');
+                }
+            ?>
         </article>
 
     </section>
